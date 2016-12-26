@@ -27,9 +27,15 @@ module.exports = {
             './app/components'
         ],
         alias: {
-            applicationStyles: 'app/styles/app.scss'
+            applicationStyles: 'app/styles/app.scss',
+            react: path.resolve(__dirname, './node_modules/react'),
+            React: path.resolve(__dirname, './node_modules/react')
         },
+        fallback: path.resolve(__dirname, './node_modules'),
         extensions: ['', '.js', '.jsx']
+    },
+    resolveLoader: {
+      fallback: path.resolve(__dirname, './node_modules')
     },
     module: {
         loaders: [{
