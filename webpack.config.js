@@ -31,7 +31,8 @@ module.exports = {
             applicationStyles: 'app/styles/app.scss',
             react: path.resolve(__dirname, './node_modules/react'),
             React: path.resolve(__dirname, './node_modules/react'),
-            actions: 'app/actions/actions.jsx'
+            actions: 'app/actions/actions.jsx',
+            reducers: 'app/reducers/reducers.jsx'
         },
         fallback: path.resolve(__dirname, './node_modules'),
         extensions: ['', '.js', '.jsx']
