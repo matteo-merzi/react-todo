@@ -40,10 +40,7 @@ describe('Reducers', () => {
             expect(res[0].text).toEqual(action.text);
         });
 
-        // define todos array with realistic todo item
-        // generate action with matching id
-        // call reducer and assert completed flip
-        it('should toggle todo and flip completed value', () => {
+        it('should toggle todo and flip uncompleted to completed value', () => {
             var todos = [{
                 id: 1,
                 text: 'Something',
@@ -59,6 +56,24 @@ describe('Reducers', () => {
 
             expect(res[0].completed).toEqual(!todos[0].completed);
             expect(res[0].completedAt).toBeA('number');
+        });
+
+        it('should toggle todo and flip completed to uncompleted value', () => {
+            var todos = [{
+                id: 1,
+                text: 'Something',
+                completed: true,
+                createdAt: moment().unix(),
+                completedAt: moment().unix()
+            }];
+            var action = {
+                type: 'TOGGLE_TODO',
+                id: 1
+            };
+            var res = reducers.todosReducer(df(todos), df(action));
+
+            expect(res[0].completed).toEqual(!todos[0].completed);
+            expect(res[0].completedAt).toBe(undefined);
         });
     });
 });
