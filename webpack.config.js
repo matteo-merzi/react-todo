@@ -28,6 +28,7 @@ module.exports = {
             './app/api'
         ],
         alias: {
+            app: 'app',
             applicationStyles: 'app/styles/app.scss',
             react: path.resolve(__dirname, './node_modules/react'),
             React: path.resolve(__dirname, './node_modules/react'),
