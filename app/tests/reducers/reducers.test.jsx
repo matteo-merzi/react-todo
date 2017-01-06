@@ -1,6 +1,5 @@
 var expect = require('expect');
 var df = require('deep-freeze-strict');
-var moment = require('moment');
 
 var reducers = require('reducers');
 
@@ -45,6 +44,30 @@ describe('Reducers', () => {
             expect(res[0]).toEqual(action.todo);
         });
 
+        it('should update todo', () => {
+            var todos = [{
+                id: 1,
+                text: 'Something',
+                completed: true,
+                createdAt: 123456789,
+                completedAt: 987654321
+            }];
+            var updates = {
+                completed: false,
+                completedAt: null
+            }
+            var action = {
+                type: 'UPDATE_TODO',
+                id: todos[0].id,
+                updates
+            };
+            var res = reducers.todosReducer(df(todos), df(action));
+
+            expect(res[0].completed).toEqual(updates.completed);
+            expect(res[0].completedAt).toEqual(updates.completedAt);
+            expect(res[0].text).toEqual(res[0].text);
+        });
+
         it('should add existing todos', () => {
             var todos = [{
                 id: 111,
@@ -61,42 +84,6 @@ describe('Reducers', () => {
 
             expect(res.length).toEqual(1);
             expect(res[0]).toEqual(todos[0]);
-        });
-
-        it('should toggle todo and flip uncompleted to completed value', () => {
-            var todos = [{
-                id: 1,
-                text: 'Something',
-                completed: false,
-                createdAt: moment().unix(),
-                completedAt: undefined
-            }];
-            var action = {
-                type: 'TOGGLE_TODO',
-                id: 1
-            };
-            var res = reducers.todosReducer(df(todos), df(action));
-
-            expect(res[0].completed).toEqual(!todos[0].completed);
-            expect(res[0].completedAt).toBeA('number');
-        });
-
-        it('should toggle todo and flip completed to uncompleted value', () => {
-            var todos = [{
-                id: 1,
-                text: 'Something',
-                completed: true,
-                createdAt: moment().unix(),
-                completedAt: moment().unix()
-            }];
-            var action = {
-                type: 'TOGGLE_TODO',
-                id: 1
-            };
-            var res = reducers.todosReducer(df(todos), df(action));
-
-            expect(res[0].completed).toEqual(!todos[0].completed);
-            expect(res[0].completedAt).toBe(undefined);
         });
     });
 });
