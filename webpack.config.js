@@ -54,8 +54,8 @@ module.exports = {
         alias: {
             app: 'app',
             applicationStyles: 'app/styles/app.scss',
-            react: path.resolve(__dirname, './node_modules/react'),
-            React: path.resolve(__dirname, './node_modules/react'),
+            //react: path.resolve(__dirname, './node_modules/react'),
+            //React: path.resolve(__dirname, './node_modules/react'),
             actions: 'app/actions/actions.jsx',
             reducers: 'app/reducers/reducers.jsx',
             configureStore: 'app/store/configureStore.jsx'
