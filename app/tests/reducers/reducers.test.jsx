@@ -4,12 +4,38 @@ var df = require('deep-freeze-strict');
 var reducers = require('reducers');
 
 describe('Reducers', () => {
+    describe('autoReducer', () => {
+        it('should store uid on login', () => {
+            var action = {
+                type: 'LOGIN',
+                uid: 'userId'
+            };
+            var res = reducers.authReducer(df({}), df(action));
+
+            expect(res).toEqual({
+                uid: action.uid
+            });
+        });
+
+        it('should wipe auth on logout', () => {
+            var auth = {
+                uid: 'userId'
+            }
+            var action = {
+                type: 'LOGOUT'
+            };
+            var res = reducers.authReducer(df(auth), df(action));
+
+            expect(res).toEqual({});
+        })
+    });
+
     describe('searchTextReducer', () => {
         it('should set searchText', () => {
             var action = {
                 type: 'SET_SEARCH_TEXT',
                 searchText : 'test'
-            }
+            };
             var res = reducers.searchTextReducer(df(''), df(action));
 
             expect(res).toEqual(action.searchText);
@@ -20,7 +46,7 @@ describe('Reducers', () => {
         it('should toggle showCompleted', () => {
             var action = {
                 type: 'TOGGLE_SHOW_COMPLETED'
-            }
+            };
             var res = reducers.showCompletedReducer(df(false), df(action));
 
             expect(res).toEqual(true);
